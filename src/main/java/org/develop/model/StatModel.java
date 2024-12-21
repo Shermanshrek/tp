@@ -1,9 +1,6 @@
 package org.develop.model;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.IdClass;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -14,12 +11,14 @@ import java.time.LocalDateTime;
 @Setter
 public class StatModel {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    private LocalDateTime exerciseDate;
     private String username;
-    @Column(unique=true)
-    private Long exercise_id;
-
-    private double doTime;
-    private LocalDateTime dateTime;
-    private int errors;
+    private int errorCount;
+    private String exerciseName;
+    private long durationInSeconds;
+    @Column(unique = true)
+    private long exerciseId;
 }
 

@@ -50,6 +50,10 @@ public class UserService {
     public List<UserModel> getAllUsers(){
         return userRepository.findAll();
     }
+
+    public void deleteUser(Long id){
+        userRepository.deleteById(id);
+    }
     //дать права администратора текущему пользователю
     @Deprecated
     public void getAdmin(){

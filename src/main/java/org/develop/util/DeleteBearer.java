@@ -6,7 +6,7 @@ public class DeleteBearer {
 
     public static String deleteBearer(String token) {
         if (token.startsWith(bearer)) {
-            token = token.substring(bearer.length()); // Удаляем первые 7 символов ("Bearer ")
+            token = token.substring(bearer.length());
         }
         return token;
     }

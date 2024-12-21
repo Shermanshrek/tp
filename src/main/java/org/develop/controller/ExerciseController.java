@@ -56,7 +56,7 @@ public class ExerciseController {
     }
 
     @DeleteMapping("/admin/exercises/{id}")
-    public ResponseEntity deleteExercise(@PathVariable Long id) {
+    public ResponseEntity<Long> deleteExercise(@PathVariable Long id) {
         try {
             service.deleteExercise(id);
             return ResponseEntity.ok().body(id);
