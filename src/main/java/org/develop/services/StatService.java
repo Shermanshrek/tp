@@ -8,6 +8,7 @@ import org.develop.repository.StatRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -38,5 +39,14 @@ public class StatService {
                 distinct().
                 collect(Collectors.toList());
         return exerciseRepo.findAllById(exerciseIds);
+    }
+
+    public List<StatModel> getStatsForAdmin(String username){
+        return statRepository.findByUsername(username);
+    }
+
+    public StatModel getStatForExercise(Long id){
+       Optional<StatModel> stat = statRepository.findById(id);
+       return stat.orElseThrow(()-> new RuntimeException("Stat not found"));
     }
 }

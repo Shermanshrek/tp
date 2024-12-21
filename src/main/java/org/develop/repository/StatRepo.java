@@ -5,6 +5,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
 
-public interface StatRepo extends JpaRepository<StatModel, String>  {
+public interface StatRepo extends JpaRepository<StatModel, Long>  {
     List<StatModel> findByUsername(String username);
 }

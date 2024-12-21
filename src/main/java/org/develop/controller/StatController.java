@@ -2,6 +2,7 @@ package org.develop.controller;
 
 import org.develop.dto.StatDTO;
 import org.develop.model.ExerciseModel;
+import org.develop.model.StatModel;
 import org.develop.model.UserModel;
 import org.develop.services.StatService;
 import org.develop.services.UserService;
@@ -41,6 +42,15 @@ public class StatController {
             return ResponseEntity.ok().body("Exercise stat created");
         } catch (Exception e) {
             return ResponseEntity.badRequest().body("Failed to save stat");
+        }
+    }
+
+    @GetMapping("/user/get-exercise-stat/{id}")
+    public ResponseEntity<StatModel> getExerciseStat(@PathVariable Long id) {
+        try {
+            return ResponseEntity.ok().body(statService.getStatForExercise(id));
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().build();
         }
     }
 }
