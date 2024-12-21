@@ -21,9 +21,9 @@ public class AccountsController {
         this.jwtService = jwtService;
     }
 
-    @GetMapping("/admin/get-all-users")
+    @GetMapping("/admin/get-all-accounts")
     public ResponseEntity<List<UserModel>> getAccounts() {
-        try {
+        try{
             userService.getAllUsers();
             return ResponseEntity.ok().build();
         } catch (Exception e) {
