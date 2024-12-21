@@ -41,12 +41,12 @@ public class ExerciseController {
             }
             // Извлечение роли
             String role = jwtService.extractRole(token);
-            if (role.equals("ROLE_ADMIN")) {
+//            if (role.equals("ROLE_ADMIN")) {
                 service.createExercise(entity);
                 return ResponseEntity.ok().body(entity);
-            } else {
-                return ResponseEntity.badRequest().body("You are not an admin");
-            }
+//            } else {
+//                return ResponseEntity.badRequest().body("You are not an admin");
+//            }
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
