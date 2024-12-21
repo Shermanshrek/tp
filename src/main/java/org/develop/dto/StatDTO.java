@@ -13,8 +13,8 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 public class StatDTO {
     private String username;
-    private Long exercise_id;
+    private long exerciseId;
     private int errors;
     private LocalDateTime date;
-    private double doTime;
+    private long doTime;
 }
