@@ -29,6 +29,7 @@ public class StatService {
         model.setErrorCount(dto.getErrors());
         model.setMeanTime(dto.getMeanTime());
         model.setDurationInSeconds(dto.getDoTime());
+        model.setExerciseId(dto.getExerciseId());
         statRepository.save(model);
     }
 
@@ -46,7 +47,7 @@ public class StatService {
     }
 
     public StatModel getStatForExercise(Long id){
-       Optional<StatModel> stat = statRepository.findById(id);
+       Optional<StatModel> stat = statRepository.findByExerciseId(id);
        return stat.orElseThrow(()-> new RuntimeException("Stat not found"));
     }
 }

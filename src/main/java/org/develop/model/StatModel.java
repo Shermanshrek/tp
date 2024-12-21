@@ -20,6 +20,6 @@ public class StatModel {
     private long durationInSeconds;
     private double meanTime;
     @Column(unique = true)
-    private long exerciseId;
+    private Long exerciseId;
 }
 
