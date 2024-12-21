@@ -34,7 +34,7 @@ public class StatController {
         return userService.getAllUsers();
     }
 
-    @PostMapping("user/get-exercise-stat")
+    @PostMapping("/user/get-exercise-stat")
     public ResponseEntity<String> createExerciseStat(@RequestBody StatDTO statDTO) {
         try {
             statService.saveStat(statDTO);
