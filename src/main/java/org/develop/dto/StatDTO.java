@@ -15,6 +15,6 @@ public class StatDTO {
     private String username;
     private long exerciseId;
     private int errors;
-    private LocalDateTime date;
+    private String date;
     private long doTime;
 }
