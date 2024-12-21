@@ -21,7 +21,7 @@ public class ExerciseController {
         this.service = service;
     }
 
-    @GetMapping("/do-exercise/{id}")
+    @GetMapping("/user/do-exercise/{id}")
     public ExerciseModel getExercise(@PathVariable Long id) throws Exception {
         return service.getExerciseById(id);
     }
