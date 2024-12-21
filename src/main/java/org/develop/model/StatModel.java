@@ -13,7 +13,7 @@ public class StatModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private LocalDateTime exerciseDate;
+    private String exerciseDate;
     private String username;
     private int errorCount;
     private String exerciseName;
