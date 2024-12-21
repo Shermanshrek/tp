@@ -3,10 +3,12 @@ package org.develop.model;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 import java.time.LocalDateTime;
 
 @Entity
+@ToString
 @Getter
 @Setter
 public class StatModel {
@@ -18,6 +20,7 @@ public class StatModel {
     private int errorCount;
     private String exerciseName;
     private long durationInSeconds;
+    private double meanTime;
     @Column(unique = true)
     private long exerciseId;
 }

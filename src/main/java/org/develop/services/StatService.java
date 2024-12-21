@@ -26,6 +26,7 @@ public class StatService {
         model.setExerciseDate(dto.getDate());
         model.setUsername(dto.getUsername());
         model.setErrorCount(dto.getErrors());
+        model.setMeanTime(dto.getMeanTime());
         model.setDurationInSeconds(dto.getDoTime());
         statRepository.save(model);
     }
