@@ -31,8 +31,15 @@ public class ExerciseController {
     }
 
     @GetMapping("/admin/do-exercise/{id}")
-    public ExerciseModel getExerciseAdmin(@PathVariable Long id) throws Exception {
-        return service.getExerciseById(id);
+    public ResponseEntity<ExerciseModel> getExerciseAdmin(@PathVariable Long id, @RequestHeader("Authorization") String token) throws Exception {
+        if (token.startsWith(DeleteBearer.bearer)) {
+            token = token.substring(DeleteBearer.bearer.length());
+        }
+        String role = jwtService.extractRole(token);
+        if (role.equals("ROLE_ADMIN")) {
+            return ResponseEntity.ok(service.getExerciseById(id));
+        }
+        else return ResponseEntity.badRequest().build();
     }
 
     @PostMapping("/admin/create-exercise")
