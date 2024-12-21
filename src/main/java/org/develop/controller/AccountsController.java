@@ -4,10 +4,7 @@ import org.develop.model.UserModel;
 import org.develop.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -31,7 +28,7 @@ public class AccountsController {
     }
 
     @DeleteMapping("/admin/delete-user/{id}")
-    public ResponseEntity<Long> deleteUser(@PathVariable Long id) {
+    public ResponseEntity<Long> deleteUser(@PathVariable Long id, @RequestHeader("Authorization") String token) {
         try {
             userService.deleteUser(id);
             return ResponseEntity.ok().build();
