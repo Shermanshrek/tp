@@ -85,9 +85,11 @@ import org.develop.model.UserModel;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
+
 import java.security.Key;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
 
@@ -122,6 +124,12 @@ public class JwtService {
         return generateToken(claims, userDetails);
     }
 
+    public String extractRole(String token) {
+        Claims claims = extractAllClaims(token);
+        return claims.get("role", String.class);
+    }
+
+
     /**
      * Проверка токена на валидность
      *
@@ -142,7 +150,7 @@ public class JwtService {
      * @param <T>             тип данных
      * @return данные
      */
-    private <T> T extractClaim(String token, Function<Claims, T> claimsResolvers) {
+    public <T> T extractClaim(String token, Function<Claims, T> claimsResolvers) {
         final Claims claims = extractAllClaims(token);
         return claimsResolvers.apply(claims);
     }
