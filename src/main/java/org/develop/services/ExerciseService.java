@@ -36,26 +36,25 @@ public class ExerciseService {
         } else throw new ExerciseNotFoundException("Exercise with that ID not found");
     }
 
-    public String autoGenerateExerciseText(ExerciseDTO entity) throws DifficultyLevelNotFoundException,  ExerciseAutoLengthOutOfBoundException{
+    public String autoGenerateExerciseText(ExerciseDTO entity) throws DifficultyLevelNotFoundException, ExerciseAutoLengthOutOfBoundException {
         Optional<DifficultyLevelModel> diffModel = difficultyLevelRepo.findByName(entity.getDifficultyLevelName());
         DifficultyLevelModel difficultyLevel;
-        if(diffModel.isPresent()){
+        if (diffModel.isPresent()) {
             difficultyLevel = diffModel.get();
-        }
-        else throw new DifficultyLevelNotFoundException("Difficulty with that name not found");
+        } else throw new DifficultyLevelNotFoundException("Difficulty with that name not found");
         if (entity.getAutoLength() > difficultyLevel.getMax_len() || entity.getAutoLength() < difficultyLevel.getMin_len()) {
             throw new ExerciseAutoLengthOutOfBoundException("Exercise auto length out of bounds");
         }
         List<String> allowedSymbols = new ArrayList<>();
         List<KeyboardArea> zones = difficultyLevel.getZones();
         for (int i = 0; i < difficultyLevel.getZones().size(); i++) {
-             allowedSymbols.addAll(zones.get(i).getSymbols());
+            allowedSymbols.addAll(zones.get(i).getSymbols());
         }
-        RandomTextGenerator text = new RandomTextGenerator(entity.getAutoLength(),allowedSymbols.toArray(new String[0]));
+        RandomTextGenerator text = new RandomTextGenerator(entity.getAutoLength(), allowedSymbols.toArray(new String[0]));
         return text.generateRandomText();
     }
 
-    public void createExercise(ExerciseDTO entity) throws DifficultyLevelNotFoundException,  ExerciseAutoLengthOutOfBoundException {
+    public void createExercise(ExerciseDTO entity) throws DifficultyLevelNotFoundException, ExerciseAutoLengthOutOfBoundException {
         ExerciseModel model = new ExerciseModel();
         DifficultyLevelModel diffModel = null;
         Optional<DifficultyLevelModel> difficultyLevel = difficultyLevelRepo.findByName(entity.getDifficultyLevelName());
@@ -64,24 +63,24 @@ public class ExerciseService {
         }
         model.setExerciseName(entity.getExerciseName());
         model.setDifficultyLevelName(diffModel);
-        if (entity.getAutoLength() > 0){
+        if (entity.getAutoLength() > 0) {
             model.setExerciseText(autoGenerateExerciseText(entity));
-        }
-        else model.setExerciseText(entity.getExerciseText());
+        } else model.setExerciseText(entity.getExerciseText());
         int err = (int) Math.round(model.getExerciseText().replaceAll(" ", "").length() * model.getDifficultyLevelName().getMax_errors());
         int do_time = (int) Math.round(model.getExerciseText().length() * model.getDifficultyLevelName().getToggle_time());
         model.setDoTime(do_time);
         model.setErrors(err);
         exerciseRepo.save(model);
     }
+
     public void deleteExercise(Long id) throws ExerciseNotFoundException {
         Optional<ExerciseModel> model = exerciseRepo.findById(id);
         if (model.isPresent()) {
             exerciseRepo.delete(model.get());
-        }
-        else throw new ExerciseNotFoundException("Exercise with that ID not found");
+        } else throw new ExerciseNotFoundException("Exercise with that ID not found");
     }
-    public List<ExerciseModel> getAllExercises(){
+
+    public List<ExerciseModel> getAllExercises() {
         var toReturn = exerciseRepo.findAll();
         return toReturn;
     }

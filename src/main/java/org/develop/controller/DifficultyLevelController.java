@@ -4,40 +4,53 @@ import org.develop.dto.DifficultyLevelDTO;
 import org.develop.exceptions.DifficultyLevelAlreadyExistsException;
 import org.develop.model.DifficultyLevelModel;
 import org.develop.services.DifficultyLevelService;
+import org.develop.services.JwtService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
 public class DifficultyLevelController {
     private final DifficultyLevelService difficultyLevelService;
+    private final JwtService jwtService;
 
     @Autowired
-    public DifficultyLevelController(DifficultyLevelService diffLevelService) {
+    public DifficultyLevelController(DifficultyLevelService diffLevelService, JwtService jwtService) {
         this.difficultyLevelService = diffLevelService;
         difficultyLevelService.keyboardAreasInit();
+        this.jwtService = jwtService;
     }
 
     @PostMapping("/admin/create-difficult")
-    public ResponseEntity createDifficultyLevel(@RequestBody DifficultyLevelDTO entity) {
+    public ResponseEntity createDifficultyLevel(@RequestBody DifficultyLevelDTO entity, @RequestHeader("Authorization") String token) {
+        System.out.println("token: " + token);
         try {
-            difficultyLevelService.createDifficultyLevel(entity);
-            return ResponseEntity.ok().body(entity);
-        } catch (DifficultyLevelAlreadyExistsException e) {
-            return ResponseEntity.badRequest().body(e.getMessage());
+            // Убираем префикс "Bearer "
+            if (token.startsWith("Bearer ")) {
+                token = token.substring(7); // Удаляем первые 7 символов ("Bearer ")
+            } else {
+                return ResponseEntity.badRequest().body("Invalid token format");
+            }
+            // Извлечение роли
+            String role = jwtService.extractRole(token);
+            if (role.equals("ROLE_ADMIN")) {
+                difficultyLevelService.createDifficultyLevel(entity);
+                return ResponseEntity.ok().body(entity);
+            } else {
+                return ResponseEntity.badRequest().body("You are not an admin");
+            }
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
+
     @GetMapping("/admin/get-difficulty-levels")
     public List<DifficultyLevelModel> getAllDifficultyLevelsAdmin() {
         return difficultyLevelService.getAllDifficultyLevels();
     }
+
     @GetMapping("/user/get-difficulty-levels")
     public List<DifficultyLevelModel> getUserDifficultyLevelsUser() {
         return difficultyLevelService.getAllDifficultyLevels();
