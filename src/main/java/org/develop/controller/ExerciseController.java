@@ -8,7 +8,7 @@ import org.develop.services.JwtService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import io.jsonwebtoken.Claims;
+import org.develop.util.DeleteBearer;
 
 import java.util.List;
 
@@ -26,20 +26,23 @@ public class ExerciseController {
     }
 
     @GetMapping("/user/do-exercise/{id}")
-    public ExerciseModel getExercise(@PathVariable Long id) throws Exception {
+    public ExerciseModel getExerciseUser(@PathVariable Long id) throws Exception {
+        return service.getExerciseById(id);
+    }
+
+    @GetMapping("/admin/do-exercise/{id}")
+    public ExerciseModel getExerciseAdmin(@PathVariable Long id) throws Exception {
         return service.getExerciseById(id);
     }
 
     @PostMapping("/admin/create-exercise")
     public ResponseEntity createExercise(@RequestBody ExerciseDTO entity, @RequestHeader("Authorization") String token) {
         try {
-            // Убираем префикс "Bearer "
-            if (token.startsWith("Bearer ")) {
-                token = token.substring(7); // Удаляем первые 7 символов ("Bearer ")
+            if (token.startsWith(DeleteBearer.bearer)) {
+                token = DeleteBearer.deleteBearer(token);
             } else {
                 return ResponseEntity.badRequest().body("Invalid token format");
             }
-            // Извлечение роли
             String role = jwtService.extractRole(token);
             if (role.equals("ROLE_ADMIN")) {
                 service.createExercise(entity);

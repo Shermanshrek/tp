@@ -5,6 +5,7 @@ import org.develop.exceptions.DifficultyLevelAlreadyExistsException;
 import org.develop.model.DifficultyLevelModel;
 import org.develop.services.DifficultyLevelService;
 import org.develop.services.JwtService;
+import org.develop.util.DeleteBearer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -27,13 +28,11 @@ public class DifficultyLevelController {
     public ResponseEntity createDifficultyLevel(@RequestBody DifficultyLevelDTO entity, @RequestHeader("Authorization") String token) {
         System.out.println("token: " + token);
         try {
-            // Убираем префикс "Bearer "
-            if (token.startsWith("Bearer ")) {
-                token = token.substring(7); // Удаляем первые 7 символов ("Bearer ")
+            if (token.startsWith(DeleteBearer.bearer)) {
+                token = DeleteBearer.deleteBearer(token);
             } else {
                 return ResponseEntity.badRequest().body("Invalid token format");
             }
-            // Извлечение роли
             String role = jwtService.extractRole(token);
             if (role.equals("ROLE_ADMIN")) {
                 difficultyLevelService.createDifficultyLevel(entity);
