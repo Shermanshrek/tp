@@ -13,7 +13,7 @@ public class StatDTO {
     private String username;
     private long exerciseId;
     private int errors;
-    private String date;
+    private LocalDateTime date;
     private double meanTime;
     private String exerciseName;
     private long doTime;
