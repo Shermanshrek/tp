@@ -32,6 +32,7 @@ public class StatService {
         model.setExerciseId(dto.getExerciseId());
         model.setExerciseName(dto.getExerciseName());
         statRepository.save(model);
+        System.out.println();
     }
 
     public List<ExerciseModel> getStats(String username){
