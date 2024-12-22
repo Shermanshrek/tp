@@ -25,7 +25,7 @@ public class StatController {
 
     //get user stat
     //id = user_id
-    @GetMapping("/get-stat-user/{username}")
+    @GetMapping("/admin/get-stat-user/{username}")
     public List<ExerciseModel> getStatUser(@PathVariable String username) {
         return statService.getStats(username);
     }
