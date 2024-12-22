@@ -17,4 +17,5 @@ public class StatDTO {
     private double meanTime;
     private String exerciseName;
     private long doTime;
+    private String exerciseName;
 }

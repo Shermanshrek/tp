@@ -9,4 +9,5 @@ import java.util.Optional;
 public interface StatRepo extends JpaRepository<StatModel, Long>  {
     List<StatModel> findByUsername(String username);
     Optional<StatModel> findByExerciseId(Long exerciseId);
+    Optional<StatModel> findByUsernameAndExerciseId(String username, Long exerciseId);
 }
