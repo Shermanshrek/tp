@@ -19,7 +19,6 @@ public class StatModel {
     private String exerciseName;
     private long durationInSeconds;
     private double meanTime;
-//    @Column(unique = true)
     private Long exerciseId;
 }
 
