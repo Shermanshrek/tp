@@ -46,7 +46,7 @@ public class StatController {
     }
 
     @GetMapping("/user/get-exercise-stat/{id}")
-    public ResponseEntity<StatModel> getExerciseStat(@PathVariable Long id, String username) {
+    public ResponseEntity<StatModel> getExerciseStat(@PathVariable Long id, @RequestBody String username) {
         try {
             return ResponseEntity.ok().body(statService.getStatForExercise(username, id));
         } catch (Exception e) {
