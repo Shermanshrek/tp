@@ -6,6 +6,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 import java.time.LocalDateTime;
+import java.util.Date;
 
 @Entity
 @ToString
@@ -15,7 +16,7 @@ public class StatModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private LocalDateTime exerciseDate;
+    private Date exerciseDate;
     private String username;
     private int errorCount;
     private String exerciseName;
