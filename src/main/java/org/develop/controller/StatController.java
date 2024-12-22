@@ -34,6 +34,15 @@ public class StatController {
     public List<UserModel> getStatAll() {
         return userService.getAllUsers();
     }
+    @GetMapping("/admin/get-exercise-stat/{username}/{id}")
+    public ResponseEntity<List<StatModel>> getExerciseStatForAdmin(@PathVariable Long id, @PathVariable String username) {
+        try {
+            return ResponseEntity.ok().body(statService.getStatForExercise(username, id));
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().build();
+        }
+    }
+
 
     @PostMapping("/user/save-exercise-stat")
     public ResponseEntity<String> createExerciseStat(@RequestBody StatDTO statDTO) {
