@@ -18,7 +18,6 @@ public class StatModel {
     private int errorCount;
     private String exerciseName;
     private long durationInSeconds;
-    @Column(precision = 10, scale = 3)
     private double meanTime;
     private Long exerciseId;
 }
