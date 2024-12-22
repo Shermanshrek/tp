@@ -7,6 +7,8 @@ import org.develop.repository.ExerciseRepo;
 import org.develop.repository.StatRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -24,7 +26,7 @@ public class StatService {
 
     public void saveStat(StatDTO dto){
         StatModel model = new StatModel();
-        model.setExerciseDate(dto.getDate());
+        model.setExerciseDate(new Date());
         model.setUsername(dto.getUsername());
         model.setErrorCount(dto.getErrors());
         model.setMeanTime(dto.getMeanTime());
