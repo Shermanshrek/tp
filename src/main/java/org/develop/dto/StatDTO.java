@@ -15,5 +15,6 @@ public class StatDTO {
     private int errors;
     private String date;
     private double meanTime;
+    private String exerciseName;
     private long doTime;
 }

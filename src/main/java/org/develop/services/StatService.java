@@ -30,6 +30,7 @@ public class StatService {
         model.setMeanTime(dto.getMeanTime());
         model.setDurationInSeconds(dto.getDoTime());
         model.setExerciseId(dto.getExerciseId());
+        model.setExerciseName(dto.getExerciseName());
         statRepository.save(model);
     }
 
