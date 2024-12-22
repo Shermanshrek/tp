@@ -47,8 +47,8 @@ public class StatService {
         return statRepository.findByUsername(username);
     }
 
-    public StatModel getStatForExercise(String username, Long id){
-       Optional<StatModel> stat = statRepository.findByUsernameAndExerciseId(username, id);
+    public List<StatModel> getStatForExercise(String username, Long id){
+       Optional<List<StatModel>> stat = statRepository.findByUsernameAndExerciseId(username, id);
        return stat.orElseThrow(()-> new RuntimeException("Stat not found"));
     }
 }
