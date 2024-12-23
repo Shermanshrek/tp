@@ -46,7 +46,7 @@ public class DifficultyLevelService {
         _model.setMin_len(entity.getMin_len());
         _model.setMax_len(entity.getMax_len());
         _model.setToggle_time(entity.getToggle_time());
-        _model.setMax_errors(entity.getMax_errors());
+        _model.setMax_errors(entity.getMax_errors() / 100); // делим на 100 так как передаём теперь ПРОЦЕНТЫ КАК ОНА ХОЧЕТ
         List<KeyboardArea> keyboardAreas = new ArrayList<>();
         for (int i = 0; i < entity.getZones().size(); i++) {
             if (entity.getZones().get(i)) {
