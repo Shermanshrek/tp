@@ -34,6 +34,14 @@ public class StatController {
     public List<UserModel> getStatAll() {
         return userService.getAllUsers();
     }
+    @GetMapping("/admin/get-all-stat")
+    public ResponseEntity<List<StatModel>> getAllStat(){
+        try{
+         return ResponseEntity.ok().body(statService.getAllStat());
+        }catch (Exception e){
+            return ResponseEntity.badRequest().build();
+        }
+    }
     @GetMapping("/admin/get-exercise-stat/{username}/{id}")
     public ResponseEntity<List<StatModel>> getExerciseStatForAdmin(@PathVariable Long id, @PathVariable String username) {
         try {
@@ -58,6 +66,14 @@ public class StatController {
     public ResponseEntity<List<StatModel>> getExerciseStat(@PathVariable Long id, @PathVariable String username) {
         try {
             return ResponseEntity.ok().body(statService.getStatForExercise(username, id));
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().build();
+        }
+    }
+    @GetMapping("/user/get-exercise-stat/{username}")
+    public ResponseEntity<List<StatModel>> getExerciseStatByUsername(@PathVariable String username) {
+        try {
+            return ResponseEntity.ok().body(statService.getStatByUsername(username));
         } catch (Exception e) {
             return ResponseEntity.badRequest().build();
         }

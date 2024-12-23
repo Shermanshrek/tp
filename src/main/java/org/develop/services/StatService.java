@@ -17,11 +17,13 @@ import java.util.stream.Collectors;
 public class StatService {
     private final StatRepo statRepository;
     private final ExerciseRepo exerciseRepo;
+    private final StatRepo statRepo;
 
     @Autowired
     public StatService(StatRepo statRepo, ExerciseRepo exerciseRepo) {
         this.statRepository = statRepo;
         this.exerciseRepo = exerciseRepo;
+        this.statRepo = statRepo;
     }
 
     public void saveStat(StatDTO dto){
@@ -53,5 +55,13 @@ public class StatService {
     public List<StatModel> getStatForExercise(String username, Long id){
        Optional<List<StatModel>> stat = statRepository.findByUsernameAndExerciseId(username, id);
        return stat.orElseThrow(()-> new RuntimeException("Stat not found"));
+    }
+
+    public List<StatModel> getStatByUsername(String username) {
+        return  statRepo.findByUsername(username);
+    }
+
+    public List<StatModel> getAllStat() {
+        return statRepo.findAll();
     }
 }
