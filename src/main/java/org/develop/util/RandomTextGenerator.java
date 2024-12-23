@@ -18,8 +18,6 @@ public class RandomTextGenerator {
     public String generateRandomText() {
         StringBuilder result = new StringBuilder(textLength);
         Random random = new Random();
-
-        // Добавление случайных символов из allowedSymbols
         for (int i = 0; i < textLength; i++) {
             int randomIndex = random.nextInt(allowedSymbols.length);
             result.append(allowedSymbols[randomIndex]);
